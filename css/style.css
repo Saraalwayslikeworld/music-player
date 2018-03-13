@@ -1,0 +1,17 @@
+/*css reset*/
+*{
+    margin: 0;
+    padding: 0;
+    color: #ddd;
+}
+
+/* common css */
+.bg {
+    background: linear-gradient(180deg, rgba(88,166,244,0.25) 0, rgba(79,100,145,1) 100%) src="" no-repeat center;
+    background-size: cover;
+}
+.musicBox {
+    margin:30% auto;
+    background: #333;
+    
+}
