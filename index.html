@@ -10,7 +10,7 @@
     <div class="bg"></div>
     <div class="musicBox">
         <div class="musicPanel ">
-            <img src="imgs/0.jpg" alt="">
+            <img id='sm-img' src="imgs/0.jpg" alt="">
             <div class="msgBar clearfix">
                 <div class="control">
                     <span class="backward"><i class="fa fa-step-backward" aria-hidden="true"></i></span>
@@ -20,7 +20,7 @@
                     <span class="list"><i class="fa fa-list-ul" aria-hidden="true"></i></span>
                 </div>
                 <div class="info">
-                        <p class="songName">sayhello</h1>
+                        <h5 class="songName">sayhello</h5>
                         <p class="singer">sara</p>
                     </div>
                 <div class="prograss">
@@ -39,6 +39,50 @@
             <li>song4</li>
         </ul>       
     </div>
-    <script src="js/music.js"></script>
+    <script>
+        function $(node){
+            return document.querySelector(node)
+        }
+        function $$(node){
+            return document.querySelectorAll(node)
+        }
+
+        var currentIndex = 0 //歌曲序号
+        var musicObj         //音乐信息包
+        var song = new Audio()  //歌曲 
+        //ajax封装
+        function getMusic(callback){
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET','/music.json',true)
+            xhr.send()
+            xhr.onload = function(req,res){
+                if((xhr.status>=200 && xhr.status<300)||xhr.status===304){
+                    callback(JSON.parse(this.responseText))
+                    console.log(JSON.parse(this.responseText))
+                }else{
+                    res.setHeader('contentType','text/html;charset=utf-8')
+                    res.end('<h1>服务器出错</h1>')
+                }
+            }
+            xhr.onerror = function(){
+                console.log(404,'error')
+            }
+        }
+        //获取所有音乐
+        getMusic(function(musiclist){
+            musicObj = musiclist[currentIndex]
+            console.log(musicObj)
+            loadmusic(musicObj)
+        })
+        //对当前音乐的操作
+        function loadmusic(musicObj){
+            song.src = musicObj.src
+            song.autoplay = true
+            $('.songName').innerText = musicObj.title
+            $('.singer').innerText = musicObj.auther
+            $('#sm-img').src = musicObj.img
+            $('.bg').background.src = musicObj.img
+        }
+    </script>
 </body>
 </html>

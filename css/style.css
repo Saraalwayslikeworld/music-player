@@ -39,9 +39,9 @@ html,body {
     box-shadow: 2px 1px 10px 0px rgba(50, 50, 51, 0.73);  
 }
 .musicBox .musicPanel img {
-    height: 100%;
     position: absolute;
     left: 0;
+    height: 100%;
 }
 .musicBox .musicPanel .msgBar {   
     width: 100%;
@@ -53,11 +53,15 @@ html,body {
     text-align: center;
 }
 .musicBox .info .songName {
-    font-size: 20px;
-    font-family:  Arial;   
+    font-size: 14px;
+    text-align: center;
+    font-family:  Arial;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;   
 }
 .musicBox .info .singer {
-    font-size: 14px;
+    font-size: 10px;
     font-family:  sans-serif;
 }
 .musicBox .musicPanel .control {

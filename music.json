@@ -1,26 +1,24 @@
-[
-    {
-        "src":"https://pan.baidu.com/s/12Gt8EgEMCdwU7M3wTOFG8w",
-        "title":"Little Lou, Ugly Jack, Prophet John",
-        "singer":"Belle & Sebastian",
-        "img":"https://pan.baidu.com/s/1NWOR9wvGoBqvbKIbQi2-0g"
-    },
-    {
-        "src":"https://pan.baidu.com/s/1CIQspkedbh7y_wfN8ufSFg",
-        "title":"This Is the Life",
-        "singer":"Angie Miller",
-        "img":"https://pan.baidu.com/s/1vdFeMlcDAVJ2Ea86jEfMPg"
-    },
-    {
-        "src":"https://pan.baidu.com/s/19fuwcZeKcQvdo04FzxsRzQ",
-        "title":"I Hate Myself For Loving You",
-        "singer":"Joan Jett & the Blackhearts",
-        "img":"https://pan.baidu.com/s/1XhFTiGNGHdp4N0aO97DUdA"
-    },
-    {
-        "src":"https://pan.baidu.com/s/1AKMxj7j5L9FGp-maDLoJBg",
-        "title":"Chocolate & Chili",
-        "singer":"Brenda Boykin",
-        "img":"https://pan.baidu.com/s/1lO01pHb5uZVB9IvH-ILFEQ"
-    }
-]
+
+[{
+    "src": "/music/0.mp3",
+    "title": "Chocolate&Chili",
+    "auther": "Brenda Boykin",
+    "img": "imgs/0.jpg"
+  }, {
+    "src": "/music/1.mp3",
+    "title": "I Hate Myself For Loving You",
+    "auther": "Joan Jett & the Blackhearts",
+    "img": "imgs/1.jpg"
+  },
+  {
+    "src": "/music/2.mp3",
+    "title": "This Is the Life",
+    "auther": "Angie Miller",
+    "img": "imgs/2.jpg"
+  },
+  {
+    "src": "/music/3.mp3",
+    "title": "Little Lou, Ugly Jack, Prophet John",
+    "auther": "Belle & Sebastian",
+    "img": "imgs/3.jpg"
+  }]
