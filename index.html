@@ -14,8 +14,7 @@
             <div class="msgBar clearfix">
                 <div class="control">
                     <span class="backward"><i class="fa fa-step-backward" aria-hidden="true"></i></span>
-                    <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span>
-                    <!--<span class="stop"><i class="fa fa-pause" aria-hidden="true"></i></span> -->
+                    <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span> 
                     <span class="forward"><i class="fa fa-step-forward" aria-hidden="true"></i></span>
                     <span class="list"><i class="fa fa-list-ul" aria-hidden="true"></i></span>
                 </div>
@@ -28,7 +27,10 @@
                         <div class="prograssTotal"></div>
                         <div class="prograssNow"></div>
                     </div>
-                    <div class="time">00:00/04:00</div>               
+                    <div class="time">
+                        <span class="now">00:00</span>
+                        <span class="total">/04:00</span>
+                    </div>               
                 </div>
             </div>     
         </div>
@@ -48,8 +50,13 @@
         }
 
         var currentIndex = 0 //歌曲序号
-        var musicObj         //音乐信息包
-        var song = new Audio()  //歌曲 
+        var musicList        //音乐库
+        var musicObj         //一首音乐的信息包
+        var song = new Audio()  //音频
+        var backwardBtn = $('.musicPanel .control .backward')
+        var forwardBtn = $('.musicPanel .control .forward')
+        var playBtn = $('.musicPanel .control .play')
+        
         //ajax封装
         function getMusic(callback){
             var xhr = new XMLHttpRequest()
@@ -58,7 +65,7 @@
             xhr.onload = function(req,res){
                 if((xhr.status>=200 && xhr.status<300)||xhr.status===304){
                     callback(JSON.parse(this.responseText))
-                    console.log(JSON.parse(this.responseText))
+                  //  console.log(JSON.parse(this.responseText))
                 }else{
                     res.setHeader('contentType','text/html;charset=utf-8')
                     res.end('<h1>服务器出错</h1>')
@@ -68,20 +75,62 @@
                 console.log(404,'error')
             }
         }
-        //获取所有音乐
+        //获取音乐
         getMusic(function(musiclist){
+            musicList = musiclist
             musicObj = musiclist[currentIndex]
-            console.log(musicObj)
+            //console.log(musicObj)
             loadmusic(musicObj)
         })
         //对当前音乐的操作
         function loadmusic(musicObj){
             song.src = musicObj.src
-            song.autoplay = true
+            song.autoPlay = true 
             $('.songName').innerText = musicObj.title
             $('.singer').innerText = musicObj.auther
             $('#sm-img').src = musicObj.img
-            $('.bg').background.src = musicObj.img
+            $('.bg').style.backgroundImage = 'url(' + musicObj.img + ')'
+        }
+        //音乐播放时进度条及时间变化
+        var clock
+        song.onplay = function(){
+            var allsec = parseInt(song.duration%60)+' '
+            var allmin = parseInt(song.duration/60)+' '
+            allsec = (allsec.length==2)?('0'+allsec):allsec
+            allmin = (allmin.length==2)?('0'+allmin):allmin
+            $('.total').innerText = '/'+ allmin +':'+ allsec
+            clock = setInterval(function(){
+                var sec = parseInt(song.currentTime%60)+' '
+                var min = parseInt(song.currentTime/60)+' '
+                sec = (sec.length==2)?('0'+sec):sec
+                min = (min.length==2)?('0'+min):min
+                $('.now').innerText = min +':'+ sec
+                $('.prograssNow').style.width = (song.currentTime/song.duration)*100 + '%'
+            },1000)
+        }
+        song.onpause = function(){
+            clearInterval(clock)
+        }
+        //播放控制
+        playBtn.onclick = function(){
+            var icon = this.querySelector('.fa')
+            if(icon.classList.contains('fa-pause')){
+                song.pause()
+            }else{
+                song.play()
+            }
+            icon.classList.toggle('fa-play')
+            icon.classList.toggle('fa-pause')
+        }
+        forwardBtn.onclick = function(){
+            currentIndex = (++currentIndex)%musicList.length
+            console.log(currentIndex)
+            loadmusic(musicList[currentIndex])
+        }
+        backwardBtn.onclick = function(){
+            currentIndex = (--currentIndex +musicList.length)%musicList.length
+            console.log(currentIndex)
+            loadmusic(musicList[currentIndex])
         }
     </script>
 </body>
