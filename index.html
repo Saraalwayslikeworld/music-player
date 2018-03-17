@@ -14,13 +14,13 @@
             <div class="msgBar clearfix">
                 <div class="control">
                     <span class="backward"><i class="fa fa-step-backward" aria-hidden="true"></i></span>
-                    <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span> 
+                    <span class="play"><i class="fa fa-pause" aria-hidden="true"></i></span> 
                     <span class="forward"><i class="fa fa-step-forward" aria-hidden="true"></i></span>
                     <span class="list"><i class="fa fa-list-ul" aria-hidden="true"></i></span>
                 </div>
                 <div class="info">
-                        <h5 class="songName">sayhello</h5>
-                        <p class="singer">sara</p>
+                        <h5 class="songName">sayhellohellohello</h5>
+                        <p class="singer">sarsasasasasaa</p>
                     </div>
                 <div class="prograss">
                     <div class="timeLine">
@@ -35,10 +35,10 @@
             </div>     
         </div>
         <ul class="list">
-            <li>song1</li>
+            <!-- <li>song1</li>
             <li>song2</li>
             <li>song3</li>
-            <li>song4</li>
+            <li>song4</li> -->
         </ul>       
     </div>
     <script>
@@ -56,7 +56,8 @@
         var backwardBtn = $('.musicPanel .control .backward')
         var forwardBtn = $('.musicPanel .control .forward')
         var playBtn = $('.musicPanel .control .play')
-        
+        var timeBar = $('.musicPanel .prograss .timeLine')
+        var listBtn = $('.musicPanel .control .list')
         //ajax封装
         function getMusic(callback){
             var xhr = new XMLHttpRequest()
@@ -79,17 +80,47 @@
         getMusic(function(musiclist){
             musicList = musiclist
             musicObj = musiclist[currentIndex]
+           // $$('.musicBox li').forEach()
             //console.log(musicObj)
-            loadmusic(musicObj)
+            loadmusic(musiclist[currentIndex])
+            makelist(musiclist)
         })
-        //对当前音乐的操作
+        //音乐列表的数据载入
+        function makelist(list){
+            console.log(list)
+            var str = []
+            for(var i=0; i<list.length; i++){
+                str.push('<li>'+list[i].title +'-'+list[i].auther+'</li>') 
+            }
+            console.log(str.join(""))
+            $('.musicBox>.list').innerHTML = str.join('')
+        }
+        //列表播放音乐
+        $('.musicBox>.list').onclick = function(e){
+            //console.log(this.children)
+            for(var i = 0; i < this.children.length; i++){
+            if(this.children[i] === e.target){
+            currentIndex = i
+          }}
+          loadmusic(musicList[currentIndex])
+        }
+        //换歌对当前音乐的操作
         function loadmusic(musicObj){
             song.src = musicObj.src
-            song.autoPlay = true 
+            song.autoplay = true
             $('.songName').innerText = musicObj.title
             $('.singer').innerText = musicObj.auther
             $('#sm-img').src = musicObj.img
             $('.bg').style.backgroundImage = 'url(' + musicObj.img + ')'
+            if(playBtn.firstChild.classList.contains('fa-play')){
+                playBtn.firstChild.classList.toggle('fa-play')
+                playBtn.firstChild.classList.toggle('fa-pause')
+            }
+            for(var i = 0; i < $('.musicBox>.list').children.length; i++){
+                $('.musicBox>.list').children[i].classList.remove('playing') 
+                $('.musicBox>.list').children[currentIndex].classList.add('playing') 
+            }   
+            
         }
         //音乐播放时进度条及时间变化
         var clock
@@ -111,6 +142,10 @@
         song.onpause = function(){
             clearInterval(clock)
         }
+        song.onended = function(){
+            currentIndex = (++currentIndex)%musicList.length
+            loadmusic(musicList[currentIndex]) 
+        } 
         //播放控制
         playBtn.onclick = function(){
             var icon = this.querySelector('.fa')
@@ -124,13 +159,22 @@
         }
         forwardBtn.onclick = function(){
             currentIndex = (++currentIndex)%musicList.length
-            console.log(currentIndex)
-            loadmusic(musicList[currentIndex])
+            loadmusic(musicList[currentIndex])   
         }
         backwardBtn.onclick = function(){
             currentIndex = (--currentIndex +musicList.length)%musicList.length
-            console.log(currentIndex)
             loadmusic(musicList[currentIndex])
+        }
+        //进度条的控制
+        timeBar.onclick = function(e){
+            var line = parseInt(getComputedStyle($('.prograssTotal')).width)
+            $('.prograssNow').style.width = (e.offsetX/line)*100 + '%'
+            song.currentTime = song.duration*(e.offsetX/line)
+        }
+        //音乐列表的展示
+        listBtn.onclick = function(e){
+            console.log(e)
+            $('.musicBox>.list').classList.toggle('show')
         }
     </script>
 </body>

@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'iconfont';  /* project id 595098 */
+    src: url('//at.alicdn.com/t/font_595098_xgz0a093owlgzaor.eot');
+    src: url('//at.alicdn.com/t/font_595098_xgz0a093owlgzaor.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_595098_xgz0a093owlgzaor.woff') format('woff'),
+    url('//at.alicdn.com/t/font_595098_xgz0a093owlgzaor.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_595098_xgz0a093owlgzaor.svg#iconfont') format('svg');
+  }
 /*css reset*/
 *{
     margin: 0;
@@ -45,7 +53,7 @@ html,body {
 }
 .musicBox .musicPanel .msgBar {   
     width: 100%;
-    padding: 16px 12px 16px 100px;
+    padding: 16px 12px 16px 104px;
 }
 .musicBox .info { 
     float: right; 
@@ -77,8 +85,8 @@ html,body {
 .musicBox .msgBar .prograss {
     float: right;
     width: 90%;
-    margin: 10px auto;
-    margin-top: 16px;
+    margin: 5px auto;
+    margin-top: 24px;
     text-align: right;
     font: 12px arial;
 }
@@ -95,11 +103,35 @@ html,body {
     border-radius: 1px;
 }
 
-.musicBox .list>li{
+.musicBox>.list {
+    position: relative;
     display: none;
     list-style: none;
-    background: rgba(255, 255, 255, 0.575);
-    border-bottom: 1px solid #888;
-    line-height: 24px;
-    padding-left: 12px;
+    background: rgba(255, 255, 255, 0.3); 
+}
+.show{
+    display: block!important;
+}
+.musicBox>.list li {
+    padding:5px 5px;
+    color: #000;
+    font: 12px arial;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+}
+.musicBox>.list li:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+.musicbox .list>li.playing::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: 'iconfont';
+    color: #333;
+    content: '&#xe65a';
+    display:inline-block;
+    width:16px;
+    height:16px;
+    margin-right:-16px;
 }
