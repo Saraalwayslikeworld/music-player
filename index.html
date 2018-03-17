@@ -3,8 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <title>我的音乐播放器</title>
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <style>
+        @font-face {
+        font-family: 'iconfont';  /* project id 595098 */
+        src: url('//at.alicdn.com/t/font_595098_51nmnwyaofyr2j4i.eot');
+        src: url('//at.alicdn.com/t/font_595098_51nmnwyaofyr2j4i.eot?#iefix') format('embedded-opentype'),
+        url('//at.alicdn.com/t/font_595098_51nmnwyaofyr2j4i.woff') format('woff'),
+        url('//at.alicdn.com/t/font_595098_51nmnwyaofyr2j4i.ttf') format('truetype'),
+        url('//at.alicdn.com/t/font_595098_51nmnwyaofyr2j4i.svg#iconfont') format('svg');
+        }
+        /*css reset*/
+        *{
+            margin: 0;
+            padding: 0;
+            color: #888888;
+            box-sizing: border-box;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+        .clearfix::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        /* common css */
+        .bg {
+            width: 100%;
+            height: 100%;
+            background: url(imgs/0.jpg) center center no-repeat;
+            filter: blur(150px);
+            background-size: 200%;
+            
+        }
+        .musicBox {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 350px;
+            height: 100px;
+        }
+        .musicBox .musicPanel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            box-shadow: 2px 1px 10px 0px rgba(50, 50, 51, 0.73);  
+        }
+        .musicBox .musicPanel img {
+            position: absolute;
+            left: 0;
+            height: 100%;
+        }
+        .musicBox .musicPanel .msgBar {   
+            width: 100%;
+            padding: 16px 12px 16px 104px;
+        }
+        .musicBox .info { 
+            float: right; 
+            width: 50%;
+            text-align: center;
+        }
+        .musicBox .info .songName {
+            font-size: 14px;
+            text-align: center;
+            font-family:  Arial;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;   
+        }
+        .musicBox .info .singer {
+            font-size: 10px;
+            font-family:  sans-serif;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis; 
+        }
+        .musicBox .musicPanel .control {
+            float: right;
+            width: 50%; 
+            text-align: right;
+            letter-spacing: 5px;
+            font-size: 20px;
+        }
+        .musicBox .msgBar .prograss {
+            float: right;
+            width: 90%;
+            margin: 5px auto;
+            margin-top: 24px;
+            text-align: right;
+            font: 12px arial;
+        }
+        .musicBox .msgBar .prograss .prograssTotal {
+            height: 3px;
+            background: #eee;
+            border-radius: 1px;
+        }
+        .musicBox .msgBar .prograss .prograssNow {
+            transform: translateY(-100%);
+            height: 3px;
+            width: 0%;
+            background: #666;
+            border-radius: 1px;
+        }
+
+        .musicBox>.list {
+            position: relative;
+            display: none;
+            list-style: none;
+            background: rgba(255, 255, 255, 0.3); 
+        }
+        .show{
+            display: block!important;
+        }
+        .musicBox>.list li {
+            position: relative;
+            padding:5px 5px;
+            color: #000;
+            font: 12px arial;
+            border-bottom: 0.5px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis; 
+        }
+        .musicBox>.list li:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .musicBox>.list li.playing::after {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-family: 'iconfont';
+            height: 30px;
+            color: #ddd;
+            content: '\e6da';
+            display:inline-block;
+        }
+        .musicBox>.list li.pause::after {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-family: 'iconfont';
+            font: 30px;
+            color: #ddd;
+            content: '\e636';
+            display:inline-block;
+        }
+    </style>
 </head>
 <body>
     <div class="bg"></div>
@@ -35,7 +184,7 @@
             </div>     
         </div>
         <ul class="list">
-            <!-- <li>song1</li>
+            <!-- <li class="playing">song1</li>
             <li>song2</li>
             <li>song3</li>
             <li>song4</li> -->
@@ -90,7 +239,7 @@
             console.log(list)
             var str = []
             for(var i=0; i<list.length; i++){
-                str.push('<li>'+list[i].title +'-'+list[i].auther+'</li>') 
+                str.push('<li>'+list[i].title +' - '+list[i].auther+'</li>') 
             }
             console.log(str.join(""))
             $('.musicBox>.list').innerHTML = str.join('')
@@ -156,6 +305,9 @@
             }
             icon.classList.toggle('fa-play')
             icon.classList.toggle('fa-pause')
+            $('.musicBox>.list').children[currentIndex].classList.toggle('playing') 
+            $('.musicBox>.list').children[currentIndex].classList.toggle('pause') 
+            
         }
         forwardBtn.onclick = function(){
             currentIndex = (++currentIndex)%musicList.length
