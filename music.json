@@ -1,24 +1,24 @@
 
 [{
-    "src": "/music/0.mp3",
+    "src": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/audio/0.mp3",
     "title": "Chocolate&Chili",
     "auther": "Brenda Boykin",
-    "img": "imgs/0.jpg"
+    "img": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/image/0.jpg"
   }, {
-    "src": "/music/1.mp3",
+    "src": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/audio/1.mp3",
     "title": "I Hate Myself For Loving You",
     "auther": "Joan Jett & the Blackhearts",
-    "img": "imgs/1.jpg"
+    "img": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/image/1.jpg"
   },
   {
-    "src": "/music/2.mp3",
+    "src": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/audio/2.mp3",
     "title": "This Is the Life",
     "auther": "Angie Miller",
-    "img": "imgs/2.jpg"
+    "img": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/image/2.jpg"
   },
   {
-    "src": "/music/3.mp3",
+    "src": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/audio/3.mp3",
     "title": "Little Lou, Ugly Jack, Prophet John",
     "auther": "Belle & Sebastian",
-    "img": "imgs/3.jpg"
+    "img": "http://p5s9qkvol.bkt.clouddn.com/musicplayer/image/3.jpg"
   }]
