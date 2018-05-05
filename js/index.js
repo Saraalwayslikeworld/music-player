@@ -17,7 +17,7 @@ var listBtn = $('.musicPanel .control .list')
 //ajax封装
 function getMusic(callback){
     var xhr = new XMLHttpRequest()
-    xhr.open('GET','https://github.com/Saraalwayslikeworld/music-player/blob/master/music.json',true)
+    xhr.open('GET','../music.json',true)
     xhr.send()
     xhr.onload = function(req,res){
         if((xhr.status>=200 && xhr.status<300)||xhr.status===304){
